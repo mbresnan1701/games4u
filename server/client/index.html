@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app='g4u'>
+  <head>
+    <meta charset="utf-8" />
+    <title>Games4U</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
+  </head>
+  <body>
+    <h1>Games4U</h1>
+    <h2>Level up your game</h2>
+
+    <div class='navigation'>
+      <ul>
+        <li><a href='#/mygames' class='index'>My Saved Games</a></li>
+        <li><a href='#/findgames' class='create'>Scan Games</a></li>
+        <li><a href='#/signin' class='logout' ng-click="signout()">Ragequit</a></li>
+      </ul>
+
+    </div>
+    <div ng-view></div>
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="app/auth/auth.js"></script>
+    <script src="app/games/games.js"></script>
+    <script src="app/services/services.js"></script>
+
+
+    <script src="app/app.js"></script>
+  </body>
+</html>

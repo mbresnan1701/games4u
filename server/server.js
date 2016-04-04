@@ -6,14 +6,23 @@ var handler = require('./lib/request-handler');
 var app = express();
 
 app.configure(function() {
-  app.use(express.bodyParser());
-  app.use(express.static(__dirname + '/public'));
-  app.use(express.session());
+  // app.use(express.bodyParser());
+  app.use(express.static(__dirname + '/client'));
+  app.use(handler.allowCrossDomain);
 });
 
-app.get('/', util.checkUser, handler.renderIndex);
-app.get('/create', util.checkUser, handler.renderIndex);
 
+
+// app.all('*', function (request, response, next) {
+//   console.log('mid called');
+//   response.header("Access-Control-Allow-Origin", "*");
+//   response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+//   response.header("Access-Control-Allow-Methods", "GET, POST", "PUT", "DELETE", "OPTIONS");
+//   next();
+// });
+
+app.get('/findgames', handler.allowCrossDomain, handler.searchGames);
+// app.get('/create', util.checkUser, handler.renderIndex);
 
 module.exports = app;
 
