@@ -15,19 +15,23 @@ exports.allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
 
   // intercept OPTIONS method
-  if ('OPTIONS' == req.method) {
+  if ('OPTIONS' === req.method) {
     res.send(200);
   }
   else {
     next();
   }
 };
+// http://www.giantbomb.com/api/search/?api_key=a31443da5c3e05c6800b06f298111a85b7d551cc& \
+//    format=json&query="warcraft"&resources=game
 
 exports.searchGames = function(req, res) {
   console.log('req handler called');
     request('http://www.giantbomb.com/api/search/?api_key=a31443da5c3e05c6800b06f298111a85b7d551cc& \
-   format=json&query="warcraft"&resources=game', function (error, response, body) {
-    if (!error && response.statusCode == 200) {
+   format=json&query="warcraft"&resources=game', function (err, response, body) {
+    if(err){
+      throw err;
+    } else if (!err && response.statusCode === 200) {
       console.log(body);
       res.send(200, body);
     }

@@ -4,10 +4,16 @@ angular.module('g4u.services', [])
 
   var searchGames = function(query) {
     console.log(query);
+    // return $http({
+    //   method: 'GET',
+    //   url: 'http://www.giantbomb.com/api/search/?api_key=a31443da5c3e05c6800b06f298111a85b7d551cc& \
+    //   format=json&query="warcraft"&resources=game' 
+    // });
+
     return $http({
       method: 'GET',
-      url: 'http://www.giantbomb.com/api/search/?api_key=a31443da5c3e05c6800b06f298111a85b7d551cc& \
-      format=json&query="warcraft"&resources=game' 
+      url: 'http://127.0.0.1:1337/findgames',
+      data: query
     });
   };
 
@@ -57,20 +63,8 @@ angular.module('g4u.services', [])
     isAuth: isAuth,
     signout: signout
   };
-})
-.factory('headersInterceptor', function () {
-  return {
-    request: function (config) {
-
-      // config.headers['Origin'] = '*';
-      config.headers['Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
-      config.headers['Headers'] = 'content-type, accept';
-      config.headers['Accept'] = 'application/json';
-
-      return config;
-    }
-  }
 });
+
 
 
 

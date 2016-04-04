@@ -6,6 +6,7 @@ angular.module('g4u.games', [])
 
   $scope.findGames = function(query) {
     $scope.results = Games.searchGames(query);
+    console.log($scope.results)
   };
 
 });

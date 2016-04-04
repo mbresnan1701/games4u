@@ -5,9 +5,10 @@ angular.module('g4u', [
   'ngRoute'
 ])
 .config(function ($routeProvider, $httpProvider) {
-  $httpProvider.defaults.useXDomain = true;
-  delete $httpProvider.defaults.headers.common['X-Requested-With'];
-  
+  // $httpProvider.defaults.useXDomain = true;
+  // delete $httpProvider.defaults.headers.common['X-Requested-With'];
+  // $httpProvider.interceptors.push('headersInterceptor');
+
   $routeProvider
   .when('/mygames', {
     templateUrl: 'app/games/mygames.html',
@@ -24,9 +25,21 @@ angular.module('g4u', [
 
 
   // $httpProvider.interceptors.push('AttachTokens');
-  // $httpProvider.interceptors.push('headersInterceptor');
 
-})
+});
+// .factory('headersInterceptor', function () {
+//   return {
+//     request: function (config) {
+
+//       config.headers['origin'] = '*';
+//       config.headers['methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
+//       config.headers['headers'] = 'content-type, accept';
+//       config.headers['accept'] = 'application/json';
+
+//       return config;
+//     }
+//   }
+// });
 
 
 // .factory('AttachTokens', function ($window) {

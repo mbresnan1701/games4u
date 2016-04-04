@@ -7,8 +7,12 @@ var app = express();
 
 app.configure(function() {
   // app.use(express.bodyParser());
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });  
   app.use(express.static(__dirname + '/client'));
-  app.use(handler.allowCrossDomain);
 });
 
 
@@ -21,7 +25,7 @@ app.configure(function() {
 //   next();
 // });
 
-app.get('/findgames', handler.allowCrossDomain, handler.searchGames);
+app.get('/findgames', handler.searchGames);
 // app.get('/create', util.checkUser, handler.renderIndex);
 
 module.exports = app;
