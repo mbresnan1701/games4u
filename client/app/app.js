@@ -10,6 +10,11 @@ angular.module('g4u', [
     templateUrl: 'app/games/mygames.html',
     controller: 'GamesCtrl'
 
+  })
+
+  .when('/findgames', {
+    templateUrl: 'app/games/games.html',
+    controller: 'GamesCtrl'
   });
 
 
