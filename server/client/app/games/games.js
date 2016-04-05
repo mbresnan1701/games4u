@@ -27,8 +27,7 @@ angular.module('g4u.games', [])
     }).success(function(data){
         $location.path('/mygames');
     });
-
-    
+  
   };
 
 });

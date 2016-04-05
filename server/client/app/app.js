@@ -15,8 +15,8 @@ angular.module('g4u', [
     authenticate: true,
     resolve: {
       init: function(User) {
-          return User.getUserGames();
-        }
+        return User.getUserGames();
+      }
     }
 
   })

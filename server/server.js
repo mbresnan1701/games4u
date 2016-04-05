@@ -18,7 +18,6 @@ app.configure(function() {
 
 
 app.get('/findgames', handler.searchGames);
-
 app.post('/users/adduser', handler.addNewUser);
 app.post('/users/loginuser', handler.loginUser);
 app.get('/users/games', handler.getUserString);
