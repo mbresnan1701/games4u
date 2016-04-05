@@ -26,10 +26,10 @@ exports.allowCrossDomain = function(req, res, next) {
 //    format=json&query="warcraft"&resources=game
 
 exports.searchGames = function(req, res) {
-  console.log('req handler called');
+  console.log(req.query.queryStr);
   var options = {
     url: 'http://www.giantbomb.com/api/search/?api_key=a31443da5c3e05c6800b06f298111a85b7d551cc&\
-   format=json&query="warcraft"&resources=game',
+   format=json&query=' + req.query.queryStr + '&resources=game',
     headers: {
       'User-Agent': 'requestGameData'
     }

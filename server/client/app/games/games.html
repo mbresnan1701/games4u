@@ -1,6 +1,6 @@
 <div ng-controller="GamesCtrl"> Search for games
-  <input type="text" placeholder="Enter a title..."></input>
-  <button type="button" ng-click="findGames('Mattiscool')"> Search! </button>
+  <input type="text" placeholder="Enter a title..." ng-model="input"></input>
+  <button type="button" ng-click="findGames(input)"> Search! </button>
   <div ng-repeat="game in results.results">
 	  <div> {{game.name}} </div>
 	  <img />

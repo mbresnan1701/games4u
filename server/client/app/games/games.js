@@ -3,6 +3,7 @@ angular.module('g4u.games', [])
 .controller('GamesCtrl', function ($scope, $http, Games) {
   // Your code here
   $scope.results = [];
+  $scope.userGames = [];
 
   $scope.findGames = function(query) {
     // Games.searchGames(query).then(function(response){
@@ -10,10 +11,11 @@ angular.module('g4u.games', [])
     //   $scope.data = response;
     //   console.log($scope.data);
     // });
+    console.log(query);
     $http({
       method: 'GET',
       url: 'http://127.0.0.1:1337/findgames',
-      data: query
+      params: {queryStr: query}
     }).success(function(data) {
       $scope.results = data;
       console.log($scope.results);
