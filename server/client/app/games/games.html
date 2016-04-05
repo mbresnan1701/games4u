@@ -2,11 +2,13 @@
   <input type="text" placeholder="Enter a title..." ng-model="input"></input>
   <button type="button" ng-click="findGames(input)"> Search! </button>
   <div ng-repeat="game in results.results">
-	  <div> {{game.name}} </div>
-	  <img />
-	  <div> {{game.deck}} </div>
-	  <div> rating </div>
+	  <h2> {{game.name}} </h2><br>
+	  <img src="{{game.image.icon_url}}"/><br>
+	  <div> {{game.deck}} </div><br>
+    <button type="button" ng-click="addToCollection(game)">Add to Collection! </button><br><br>
+    <hr>
   </div>
+
 </div>
 
 <hr>
