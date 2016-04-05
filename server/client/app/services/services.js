@@ -55,24 +55,27 @@ angular.module('g4u.services', [])
 
   var user = {};
   user.getUserGames = function(query) {
-    var oldToken = $window.localStorage.getItem('com.g4uUser');
-    var userGameStrArr = oldToken.gamesStr.split('?');
+    if($window.localStorage.getItem('com.g4uUser').gamesStr){
 
-    for(var i = 0; i < userGameStrArr.length; i++) {
+      var oldToken = $window.localStorage.getItem('com.g4uUser');
+      var userGameStrArr = oldToken.gamesStr.split('?');
 
-      $http({
-        method: 'GET',
-        url: 'http://127.0.0.1:1337/game',
-        params: {user: $window.localStorage.getItem('com.g4uUser').username}
-      }).success(function(data) {
-        console.log(data);
-        oldToken.userGames.push(data)
-      }).catch(function(err) {
-        return err;
-      });
+      for(var i = 0; i < userGameStrArr.length; i++) {
+
+        $http({
+          method: 'GET',
+          url: 'http://127.0.0.1:1337/game',
+          params: {user: $window.localStorage.getItem('com.g4uUser').username}
+        }).success(function(data) {
+          console.log(data);
+          oldToken.userGames.push(data)
+        }).catch(function(err) {
+          return err;
+        });
+      }
+
+      $window.localStorage.setItem('com.g4uUser', oldToken);
     }
-
-    $window.localStorage.setItem('com.g4uUser', oldToken);
 
   };
 
@@ -99,10 +102,6 @@ angular.module('g4u.services', [])
     $window.localStorage.setItem('com.g4uUser', oldToken);
 
   };
-
-
-
-
 
 
   return user;
