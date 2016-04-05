@@ -105,11 +105,25 @@ angular.module('g4u.services', [])
   
   user.removeGame = function(game) {
     var oldToken = JSON.parse($window.localStorage.getItem('com.g4uUser'));
+    console.log(oldToken.gamesStr);
+    console.log(oldToken.userGames);
     var regex = /(\d*-\d*)/g;
     var gameId = game.api_detail_url.match(regex)[0];
-    var gameStrRegex ='/\?' + gameId + '/gi';
-    oldToken.gamesStr.replace(gameStrRegex, '');
-    oldToken.userGames.splice(oldToken.userGames.indexOf(game), 1);
+    var gameStrRegex = new RegExp('\\?'+gameId);
+    oldToken.gamesStr = oldToken.gamesStr.replace(gameStrRegex, '');
+
+    var gameindex;
+    for(var i = 0; i < oldToken.userGames.length; i++) {
+      if(oldToken.userGames[i].api_detail_url === 
+"http://www.giantbomb.com/api/game/" + gameId + "/") {
+        gameindex = i;
+        break;
+      }
+    }
+    oldToken.userGames.splice(gameindex, 1);
+    // oldToken.userGames = newGames;
+    console.log(oldToken.gamesStr);
+    console.log(oldToken.userGames);
     $window.localStorage.setItem('com.g4uUser', JSON.stringify(oldToken));
 
   };

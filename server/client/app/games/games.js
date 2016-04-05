@@ -21,14 +21,16 @@ angular.module('g4u.games', [])
     if($window.localStorage.getItem('com.g4uUser') !== null){
       var tokenData = JSON.parse($window.localStorage.getItem('com.g4uUser'));
       User.AddUserGame(game);
-      // $http({
-      //   method: 'POST',
-      //   url: 'http://127.0.0.1:1337/users/updatestr',
-      //   data: JSON.stringify({username: tokenData.username, gamesStr: tokenData.gamesStr}),
-      //   headers: {'Content-Type': 'application/json;charset=utf-8'}
-      // }).success(function(data){
-      //     $location.path('/mygames');
-      // });
+      $http({
+        method: 'POST',
+        url: 'http://127.0.0.1:1337/users/updatestr',
+        data: JSON.stringify({username: tokenData.username, gamesStr: tokenData.gamesStr}),
+        headers: {'Content-Type': 'application/json;charset=utf-8'}
+      }).success(function(data){
+          tokenData.userGames.push(data);
+          $window.localStorage.setItem('com.g4uUser', JSON.stringify(tokenData));
+          console.log('Great Success!');
+      });
   
     }
   };
