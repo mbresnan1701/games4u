@@ -91,6 +91,20 @@ angular.module('g4u.services', [])
     
   };
   
+  user.removeGame = function(game) {
+    var oldToken = $window.localStorage.getItem('com.g4uUser');
+    var regex ='/\?' + game.id + '/gi';
+    oldToken.gamesStr.replace(regex, '');
+    oldToken.userGames.splice(oldToken.userGames.indexOf(game), 1);
+    $window.localStorage.setItem('com.g4uUser', oldToken);
+
+  };
+
+
+
+
+
+
   return user;
 
 });
