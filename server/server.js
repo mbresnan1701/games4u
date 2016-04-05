@@ -1,5 +1,4 @@
 var express = require('express');
-var util = require('./lib/utility');
 var bodyParser = require('body-parser');
 
 var handler = require('./lib/request-handler');
@@ -23,6 +22,7 @@ app.get('/findgames', handler.searchGames);
 app.post('/users/adduser', handler.addNewUser);
 app.post('/users/loginuser', handler.loginUser);
 app.get('/users/games', handler.getUserString);
+app.get('/game', handler.getGame);
 
 module.exports = app;
 

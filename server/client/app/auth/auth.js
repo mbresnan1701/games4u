@@ -10,28 +10,29 @@ angular.module('g4u.auth', [])
       data: JSON.stringify($scope.user),
       headers: {'Content-Type': 'application/json;charset=utf-8'}
     }).success(function(data){
-        console.log(data);
         $window.localStorage.setItem('com.g4uUser', {user: data});
         $location.path('/mygames');
     });
     
   };
+
+  $scope.isAuth = function() {
+    return Auth.isAuth();
+  };
+
   $scope.signout = function() {
     $window.localStorage.removeItem('com.g4uUser');
     $location.path('/signin');
-    console.log($window.localStorage.getItem('com.g4uUser'))
   };
 
   $scope.signup = function () {
-    console.log($scope.user);
     $http({
           method: 'POST',
           url: 'http://127.0.0.1:1337/users/adduser',
           data: JSON.stringify($scope.user),
           headers: {'Content-Type': 'application/json;charset=utf-8'}
         }).success(function(data){
-            console.log(data);
-            $window.localStorage.setItem('com.g4uUser', {user: data});
+            $window.localStorage.setItem('com.g4uUser', {user: data.username, gamesStr: data.gamesStr, userGames: []});
             $location.path('/mygames');
         })
   };

@@ -95,6 +95,21 @@ exports.loginUser = function(req, res) {
   
 };
 
-
+exports.getGame = function(req, res) {
+  console.log(req.query.queryStr);
+  var options = {
+    url: 'http://www.giantbomb.com/api/game/' + req.query.queryStr + '/?api_key=a31443da5c3e05c6800b06f298111a85b7d551cc',
+    headers: {
+      'User-Agent': 'requestGameData'
+    }
+  };
+  request(options, function (err, response, body) {
+    if(err){
+      throw err;
+    } else {
+      res.send(200, body);
+    }
+  });
+};
 
 

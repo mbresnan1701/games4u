@@ -11,9 +11,10 @@
 
     <div class='navigation' ng-controller="AuthCtrl">
       <ul>
-        <li><a href='#/mygames' class='index'>My Saved Games</a></li>
+        <li ng-show="isAuth()"><a href='#/mygames' class='index'>My Saved Games</a></li>
         <li><a href='#/findgames' class='create'>Scan Games</a></li>
-        <li><a href='#/signin' class='logout' ng-click="signout()">Ragequit</a></li>
+        <li ng-show="!isAuth()"><a href='#/signin' class='login' ng-click="signout()">Login</a></li>
+        <li ng-show="isAuth()"><a href='#/signin' class='logout' ng-click="signout()">Ragequit</a></li>
       </ul>
 
     </div>

@@ -12,7 +12,12 @@ angular.module('g4u', [
   .when('/mygames', {
     templateUrl: 'app/mygames/mygames.html',
     controller: 'MyGamesCtrl',
-    authenticate: true
+    authenticate: true,
+    resolve: {
+      init: function(User) {
+          return User.getUserGames();
+        }
+    }
 
   })
 
@@ -36,8 +41,6 @@ angular.module('g4u', [
 .run(function ($rootScope, $location, Auth) {
 
   $rootScope.$on('$routeChangeStart', function (evt, next, current) {
-    console.log(next.$$route);
-    console.log(Auth.isAuth());
     if (next.$$route && next.$$route.authenticate && !Auth.isAuth()) {
       $location.path('/signin');
     }
