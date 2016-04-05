@@ -1,0 +1,9 @@
+<div ng-controller="MyGamesCtrl"> My Games
+  {{User.games}}
+  <div ng-repeat="game in userGames">
+	  <h2> {{game.name}} </h2><br>
+	  <img src="{{game.image.icon_url}}"/><br>
+    <button type="button" ng-click="addUserGame(game)">Remove from Collection </button><br><br>
+    <hr>
+  </div>
+</div>

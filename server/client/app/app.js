@@ -2,23 +2,31 @@ angular.module('g4u', [
   'g4u.services',
   'g4u.games',
   'g4u.auth',
+  'g4u.mygames',
   'ngRoute'
 ])
 .config(function ($routeProvider, $httpProvider) {
-  // $httpProvider.defaults.useXDomain = true;
-  // delete $httpProvider.defaults.headers.common['X-Requested-With'];
-  // $httpProvider.interceptors.push('headersInterceptor');
 
   $routeProvider
   .when('/mygames', {
-    templateUrl: 'app/games/mygames.html',
-    controller: 'GamesCtrl'
+    templateUrl: 'app/mygames/mygames.html',
+    controller: 'MyGamesCtrl'
 
   })
 
   .when('/findgames', {
     templateUrl: 'app/games/games.html',
     controller: 'GamesCtrl'
+  })
+
+  .when('/signin', {
+    templateUrl: 'app/auth/signin.html',
+    controller: 'AuthCtrl'
+  })
+
+  .when('/signup', {
+    templateUrl: 'app/auth/signup.html',
+    controller: 'AuthCtrl'
   });
 
 

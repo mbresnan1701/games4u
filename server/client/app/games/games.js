@@ -1,17 +1,10 @@
 angular.module('g4u.games', [])
 
-.controller('GamesCtrl', function ($scope, $http, Games) {
-  // Your code here
+.controller('GamesCtrl', function ($scope, $http, Games, User) {
+
   $scope.results = [];
-  $scope.userGames = [];
 
   $scope.findGames = function(query) {
-    // Games.searchGames(query).then(function(response){
-    //   console.log('getting results');
-    //   $scope.data = response;
-    //   console.log($scope.data);
-    // });
-    console.log(query);
     $http({
       method: 'GET',
       url: 'http://127.0.0.1:1337/findgames',
@@ -22,6 +15,11 @@ angular.module('g4u.games', [])
     }).catch(function(err) {
       return err;
     });
+  };
+
+  $scope.addUserGame = function(game) {
+    User.addGame(game);
+
   };
 
 });

@@ -1,18 +1,14 @@
 <div ng-controller="GamesCtrl"> Search for games
   <input type="text" placeholder="Enter a title..." ng-model="input"></input>
   <button type="button" ng-click="findGames(input)"> Search! </button>
+  <hr>
   <div ng-repeat="game in results.results">
 	  <h2> {{game.name}} </h2><br>
 	  <img src="{{game.image.icon_url}}"/><br>
 	  <div> {{game.deck}} </div><br>
-    <button type="button" ng-click="addToCollection(game)">Add to Collection! </button><br><br>
+    <button type="button" ng-click="addUserGame(game)">Add to Collection! </button><br><br>
     <hr>
   </div>
 
 </div>
 
-<hr>
-
-<pre ng-controller="GamesCtrl">
-{{results}}
-</pre>
