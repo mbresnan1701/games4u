@@ -34,13 +34,20 @@ angular.module('g4u.services', [])
     });
 
   };
+  
+  var isAuth = function() {
+    return $window.localStorage.getItem('com.g4uUser') !== undefined;
+  };
 
-
-
+  var signout = function() {
+    return $window.localStorage.removeItem('com.g4uUser');
+  }
 
   return {
     signin: signin,
-    adduser: adduser
+    adduser: adduser,
+    isAuth: isAuth,
+    signout: signout
 
   };
 });

@@ -3,7 +3,8 @@ angular.module('g4u', [
   'g4u.games',
   'g4u.auth',
   'g4u.mygames',
-  'ngRoute'
+  'ngRoute', 
+  'ngCookies'
 ])
 .config(function ($routeProvider, $httpProvider) {
 
@@ -20,12 +21,12 @@ angular.module('g4u', [
   })
 
   .when('/signin', {
-    templateUrl: 'app/auth/signin.html',
+    templateUrl: 'app/auth/loadsavedgame.html',
     controller: 'AuthCtrl'
   })
 
   .when('/signup', {
-    templateUrl: 'app/auth/signup.html',
+    templateUrl: 'app/auth/newgame.html',
     controller: 'AuthCtrl'
   });
 

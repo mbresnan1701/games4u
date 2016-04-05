@@ -1,6 +1,6 @@
 angular.module('g4u.games', [])
 
-.controller('GamesCtrl', function ($scope, $http, Games, User) {
+.controller('GamesCtrl', function ($scope, $http, Games, User, Auth) {
 
   $scope.results = [];
 
