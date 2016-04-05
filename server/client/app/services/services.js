@@ -55,17 +55,18 @@ angular.module('g4u.services', [])
 
   var user = {};
   user.getUserGames = function(query) {
-    if($window.localStorage.getItem('com.g4uUser').gamesStr){
+    if(JSON.parse($window.localStorage.getItem('com.g4uUser')).gamesStr){
 
-      var oldToken = $window.localStorage.getItem('com.g4uUser');
+      var oldToken = JSON.parse($window.localStorage.getItem('com.g4uUser'));
       var userGameStrArr = oldToken.gamesStr.split('?');
+      console.log(userGameStrArr);
 
       for(var i = 0; i < userGameStrArr.length; i++) {
 
         $http({
           method: 'GET',
           url: 'http://127.0.0.1:1337/game',
-          params: {user: $window.localStorage.getItem('com.g4uUser').username}
+          params: {gameId: userGameStrArr[i]}
         }).success(function(data) {
           console.log(data);
           oldToken.userGames.push(data)
@@ -74,20 +75,23 @@ angular.module('g4u.services', [])
         });
       }
 
-      $window.localStorage.setItem('com.g4uUser', oldToken);
+      $window.localStorage.setItem('com.g4uUser', JSON.stringify(oldToken));
     }
 
   };
 
   user.AddUserGame = function(game) {
-    var oldToken = $window.localStorage.getItem('com.g4uUser');
-
+    var oldToken = JSON.parse($window.localStorage.getItem('com.g4uUser'));
+    
     /////////////////////////////////
     /////////////////////////////////
     /////////////////////////////////
+    var regex = /(\d*-\d*)/g;
+    var gameId = game.api_detail_url.match(regex)[0];
+    console.log(gameId);
     oldToken.gamesStr += '?' + game.id;
     oldToken.userGames.push(game)
-    $window.localStorage.setItem('com.g4uUser', oldToken);
+    $window.localStorage.setItem('com.g4uUser', JSON.stringify(oldToken));
     /////////////////////////////////
     /////////////////////////////////
     /////////////////////////////////
@@ -95,11 +99,13 @@ angular.module('g4u.services', [])
   };
   
   user.removeGame = function(game) {
-    var oldToken = $window.localStorage.getItem('com.g4uUser');
-    var regex ='/\?' + game.id + '/gi';
-    oldToken.gamesStr.replace(regex, '');
+    var oldToken = JSON.parse($window.localStorage.getItem('com.g4uUser'));
+    var regex = /(\d*-\d*)/g;
+    var gameId = game.api_detail_url.match(regex)[0];
+    var gameStrRegex ='/\?' + gameId + '/gi';
+    oldToken.gamesStr.replace(gameStrRegex, '');
     oldToken.userGames.splice(oldToken.userGames.indexOf(game), 1);
-    $window.localStorage.setItem('com.g4uUser', oldToken);
+    $window.localStorage.setItem('com.g4uUser', JSON.stringify(oldToken));
 
   };
 

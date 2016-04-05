@@ -10,7 +10,7 @@ angular.module('g4u.auth', [])
       data: JSON.stringify($scope.user),
       headers: {'Content-Type': 'application/json;charset=utf-8'}
     }).success(function(data){
-        $window.localStorage.setItem('com.g4uUser', {user: data});
+        $window.localStorage.setItem('com.g4uUser', JSON.stringify({user: data.username, gamesStr: data.gamesStr, userGames: []}));
         $location.path('/mygames');
     });
     
@@ -32,7 +32,7 @@ angular.module('g4u.auth', [])
           data: JSON.stringify($scope.user),
           headers: {'Content-Type': 'application/json;charset=utf-8'}
         }).success(function(data){
-            $window.localStorage.setItem('com.g4uUser', {user: data.username, gamesStr: data.gamesStr, userGames: []});
+            $window.localStorage.setItem('com.g4uUser', JSON.stringify({user: data.username, gamesStr: '', userGames: []}));
             $location.path('/mygames');
         })
   };

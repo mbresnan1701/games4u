@@ -56,7 +56,8 @@ exports.addNewUser = function(req, res) {
       if (!user) {
         var newUser = new User({
           username: username,
-          password: password
+          password: password,
+          gamesStr: ''
         });
         console.log(newUser)
         newUser.save(function(err, user) {
@@ -95,9 +96,9 @@ exports.loginUser = function(req, res) {
 };
 
 exports.getGame = function(req, res) {
-  console.log(req.query.queryStr);
+  console.log(req.query.gameId);
   var options = {
-    url: 'http://www.giantbomb.com/api/game/' + req.query.queryStr + '/?api_key=a31443da5c3e05c6800b06f298111a85b7d551cc',
+    url: 'http://www.giantbomb.com/api/game/' + req.query.gameId + '/?api_key=a31443da5c3e05c6800b06f298111a85b7d551cc',
     headers: {
       'User-Agent': 'requestGameData'
     }
@@ -113,7 +114,7 @@ exports.getGame = function(req, res) {
 };
 
 exports.updateUserStr = function(req, res) {
-
+  console.log(req.body);
   User.update({ username: req.body.username }, {gamesStr: req.body.gamesStr}).exec()
     .then(function(result) {
       console.log(result);
