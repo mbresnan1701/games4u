@@ -19,7 +19,7 @@ angular.module('g4u.auth', [])
   $scope.signout = function() {
     $window.localStorage.removeItem('com.g4uUser');
     $location.path('/signin');
-  
+    console.log($window.localStorage.getItem('com.g4uUser'))
   };
 
   $scope.signup = function () {

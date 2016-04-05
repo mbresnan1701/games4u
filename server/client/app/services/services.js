@@ -36,7 +36,7 @@ angular.module('g4u.services', [])
   };
   
   var isAuth = function() {
-    return $window.localStorage.getItem('com.g4uUser') !== undefined;
+    return $window.localStorage.getItem('com.g4uUser') !== null;
   };
 
   var signout = function() {

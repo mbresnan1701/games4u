@@ -1,9 +1,8 @@
 angular.module('g4u.mygames', [])
 
-.controller('MyGamesCtrl', function ($scope, $http, Games, User, Auth) {
+.controller('MyGamesCtrl', function ($scope, $http, Games, Auth) {
   $scope.userGamesStr = '';
   $scope.userGames = [];
-  $scope.user = 'Batman';
 
   $scope.getUserGames = function(query) {
     $http({
@@ -19,15 +18,15 @@ angular.module('g4u.mygames', [])
     });
   };
 
-})
-  .factory('User', function() {
-    var user = {};
-    user.games = [];
-
-    user.addGame = function(game) {
-      user.games.push(game);
-    };
-
-    return user;
 });
+//   .factory('User', function() {
+//     var user = {};
+//     user.games = [];
+
+//     user.addGame = function(game) {
+//       user.games.push(game);
+//     };
+
+//     return user;
+// });
 
