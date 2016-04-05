@@ -107,9 +107,19 @@ exports.getGame = function(req, res) {
     if(err){
       throw err;
     } else {
+      console.log(body);
       res.send(200, body);
     }
   });
 };
 
+exports.updateUserStr = function(req, res) {
+
+  User.update({ username: req.body.username }, {gamesStr: req.body.gamesStr}).exec()
+    .then(function(result) {
+      console.log(result);
+      res.send(200, result);
+    });
+
+};
 

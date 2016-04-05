@@ -21,11 +21,10 @@ angular.module('g4u.games', [])
     User.AddUserGame(game);
     $http({
       method: 'POST',
-      url: 'http://127.0.0.1:1337/users/loginuser',
-      data: JSON.stringify($scope.user),
+      url: 'http://127.0.0.1:1337/users/updatestr',
+      data: JSON.stringify($window.localStorage.getItem('com.g4uUser').gamesStr),
       headers: {'Content-Type': 'application/json;charset=utf-8'}
     }).success(function(data){
-        $window.localStorage.setItem('com.g4uUser', {user: data});
         $location.path('/mygames');
     });
 
