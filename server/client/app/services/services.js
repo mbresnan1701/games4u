@@ -16,6 +16,8 @@ angular.module('g4u.services', [])
   };
   
 })
+
+
 .factory('Auth', function ($http, $location, $window) {
 
   var signin = function (user) {
@@ -51,6 +53,8 @@ angular.module('g4u.services', [])
 
   };
 })
+
+
 .factory('User', function($http, $location, $window) {
 
   var user = {};
@@ -62,17 +66,18 @@ angular.module('g4u.services', [])
       console.log(userGameStrArr);
 
       for(var i = 0; i < userGameStrArr.length; i++) {
-
-        $http({
-          method: 'GET',
-          url: 'http://127.0.0.1:1337/game',
-          params: {gameId: userGameStrArr[i]}
-        }).success(function(data) {
-          console.log(data);
-          oldToken.userGames.push(data)
-        }).catch(function(err) {
-          return err;
-        });
+        if (userGameStrArr[i] !== '') {
+          $http({
+            method: 'GET',
+            url: 'http://127.0.0.1:1337/game',
+            params: {gameId: userGameStrArr[i]}
+          }).success(function(data) {
+            console.log(data);
+            oldToken.userGames.push(data.results)
+          }).catch(function(err) {
+            return err;
+          });
+        }
       }
 
       $window.localStorage.setItem('com.g4uUser', JSON.stringify(oldToken));
@@ -89,7 +94,7 @@ angular.module('g4u.services', [])
     var regex = /(\d*-\d*)/g;
     var gameId = game.api_detail_url.match(regex)[0];
     console.log(gameId);
-    oldToken.gamesStr += '?' + game.id;
+    oldToken.gamesStr += '?' + gameId;
     oldToken.userGames.push(game)
     $window.localStorage.setItem('com.g4uUser', JSON.stringify(oldToken));
     /////////////////////////////////

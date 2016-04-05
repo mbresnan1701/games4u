@@ -98,16 +98,16 @@ exports.loginUser = function(req, res) {
 exports.getGame = function(req, res) {
   console.log(req.query.gameId);
   var options = {
-    url: 'http://www.giantbomb.com/api/game/' + req.query.gameId + '/?api_key=a31443da5c3e05c6800b06f298111a85b7d551cc',
+    url: 'http://www.giantbomb.com/api/game/' + req.query.gameId + '/?api_key=a31443da5c3e05c6800b06f298111a85b7d551cc&format=json',
     headers: {
       'User-Agent': 'requestGameData'
     }
   };
+  console.log(options.url);
   request(options, function (err, response, body) {
     if(err){
       throw err;
     } else {
-      console.log(body);
       res.send(200, body);
     }
   });
