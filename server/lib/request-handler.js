@@ -114,7 +114,7 @@ exports.getGame = function(req, res) {
 
 exports.updateUserStr = function(req, res) {
   console.log(req.body);
-  User.update({ username: req.body.username }, {$inc: {gamesStr: req.body.gamesStr}}, {}).exec()
+  User.update({ username: req.body.username },{gamesStr: req.body.gamesStr}).exec()
     .then(function(result) {
       // console.log(result);
       res.send(200, result);
