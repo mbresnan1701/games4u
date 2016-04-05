@@ -10,10 +10,15 @@ angular.module('g4u.services', [])
     //   format=json&query="warcraft"&resources=game' 
     // });
 
-    return $http({
+    $http({
       method: 'GET',
       url: 'http://127.0.0.1:1337/findgames',
       data: query
+    }).then(function(data) {
+      console.log(data.data.results);
+      return data.data.results;
+    }).catch(function(err) {
+      return err;
     });
   };
 

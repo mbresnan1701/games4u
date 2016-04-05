@@ -27,12 +27,17 @@ exports.allowCrossDomain = function(req, res, next) {
 
 exports.searchGames = function(req, res) {
   console.log('req handler called');
-    request('http://www.giantbomb.com/api/search/?api_key=a31443da5c3e05c6800b06f298111a85b7d551cc& \
-   format=json&query="warcraft"&resources=game', function (err, response, body) {
+  var options = {
+    url: 'http://www.giantbomb.com/api/search/?api_key=a31443da5c3e05c6800b06f298111a85b7d551cc&\
+   format=json&query="warcraft"&resources=game',
+    headers: {
+      'User-Agent': 'requestGameData'
+    }
+  };
+  request(options, function (err, response, body) {
     if(err){
       throw err;
-    } else if (!err && response.statusCode === 200) {
-      console.log(body);
+    } else {
       res.send(200, body);
     }
   });

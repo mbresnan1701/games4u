@@ -5,8 +5,21 @@ angular.module('g4u.games', [])
   $scope.results = [];
 
   $scope.findGames = function(query) {
-    $scope.results = Games.searchGames(query);
-    console.log($scope.results)
+    // Games.searchGames(query).then(function(response){
+    //   console.log('getting results');
+    //   $scope.data = response;
+    //   console.log($scope.data);
+    // });
+    $http({
+      method: 'GET',
+      url: 'http://127.0.0.1:1337/findgames',
+      data: query
+    }).success(function(data) {
+      $scope.results = data;
+      console.log($scope.results);
+    }).catch(function(err) {
+      return err;
+    });
   };
 
 });
