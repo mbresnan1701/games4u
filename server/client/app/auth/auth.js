@@ -4,6 +4,16 @@ angular.module('g4u.auth', [])
   $scope.user = {};
   
   $scope.signin = function () {
+    $http({
+      method: 'POST',
+      url: 'http://127.0.0.1:1337/users/loginuser',
+      data: JSON.stringify($scope.user),
+      headers: {'Content-Type': 'application/json;charset=utf-8'}
+    }).success(function(data){
+        console.log(data);
+        $window.localStorage.setItem('com.g4uUser', {user: data});
+        $location.path('/mygames');
+    });
     
   };
   $scope.signout = function() {
@@ -21,15 +31,10 @@ angular.module('g4u.auth', [])
           headers: {'Content-Type': 'application/json;charset=utf-8'}
         }).success(function(data){
             console.log(data);
-            $window.localStorage.setItem('com.g4uUser', {user: data.username});
+            $window.localStorage.setItem('com.g4uUser', {user: data});
             $location.path('/mygames');
         })
   };
   
-  $scope.isAuth = function() {
-    return Auth.isAuth();
-  };
-
-
 
 });

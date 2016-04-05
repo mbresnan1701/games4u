@@ -21,8 +21,8 @@ app.configure(function() {
 app.get('/findgames', handler.searchGames);
 
 app.post('/users/adduser', handler.addNewUser);
-// app.post('/user')
-// app.get('/create', util.checkUser, handler.renderIndex);
+app.post('/users/loginuser', handler.loginUser);
+app.get('/users/games', handler.getUserString);
 
 module.exports = app;
 

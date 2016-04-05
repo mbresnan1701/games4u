@@ -38,7 +38,11 @@ exports.searchGames = function(req, res) {
   });
 };
 
-exports.getUserString = function(user) {
+exports.getUserString = function(req, res) {
+  User.findOne({username: req.query.queryStr}).exec()
+    .then(function(user) {
+      res.send(200, user.gamesStr);
+    });
 
 };
 
@@ -58,7 +62,7 @@ exports.addNewUser = function(req, res) {
         console.log(newUser)
         newUser.save(function(err, user) {
           // util.createSession(req, res, user.username);
-          res.send(200, user);
+          res.send(200, {username: user.username, userstr: user.gamesStr});
         });
 
       } else {
@@ -67,5 +71,30 @@ exports.addNewUser = function(req, res) {
       }
     });
 
-
 };
+
+
+exports.loginUser = function(req, res) {
+
+  var username = req.body.username;
+  var password = req.body.password;
+
+  User.findOne({ username: username }).exec()
+    .then(function(user) {
+      console.log(user);
+      if (!user) {  
+        res.send(403, 'User Not Found');
+      } else {
+        if(password === user.password) {
+          res.send(200, {username: user.username, gamesStr: user.gamesStr});
+        } else {
+          res.send(403, 'Invalid Credentials');
+        }
+      }
+    });
+  
+};
+
+
+
+
