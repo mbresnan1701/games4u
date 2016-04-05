@@ -58,9 +58,9 @@ angular.module('g4u.services', [])
 .factory('User', function($http, $location, $window) {
 
   var user = {};
-  user.getUserGames = function(query) {
+  user.getUserGames = function() {
     if(JSON.parse($window.localStorage.getItem('com.g4uUser')).gamesStr){
-
+      var games = [];
       var oldToken = JSON.parse($window.localStorage.getItem('com.g4uUser'));
       var userGameStrArr = oldToken.gamesStr.split('?');
       console.log(userGameStrArr);
@@ -73,7 +73,8 @@ angular.module('g4u.services', [])
             params: {gameId: userGameStrArr[i]}
           }).success(function(data) {
             console.log(data);
-            oldToken.userGames.push(data.results)
+            oldToken.userGames.push(data.results);
+            games.push(data.results)
           }).catch(function(err) {
             return err;
           });
@@ -81,6 +82,7 @@ angular.module('g4u.services', [])
       }
 
       $window.localStorage.setItem('com.g4uUser', JSON.stringify(oldToken));
+      return games;
     }
 
   };
@@ -88,25 +90,18 @@ angular.module('g4u.services', [])
   user.AddUserGame = function(game) {
     var oldToken = JSON.parse($window.localStorage.getItem('com.g4uUser'));
     
-    /////////////////////////////////
-    /////////////////////////////////
-    /////////////////////////////////
     var regex = /(\d*-\d*)/g;
     var gameId = game.api_detail_url.match(regex)[0];
     console.log(gameId);
     oldToken.gamesStr += '?' + gameId;
     oldToken.userGames.push(game)
     $window.localStorage.setItem('com.g4uUser', JSON.stringify(oldToken));
-    /////////////////////////////////
-    /////////////////////////////////
-    /////////////////////////////////
+
     
   };
   
   user.removeGame = function(game) {
     var oldToken = JSON.parse($window.localStorage.getItem('com.g4uUser'));
-    console.log(oldToken.gamesStr);
-    console.log(oldToken.userGames);
     var regex = /(\d*-\d*)/g;
     var gameId = game.api_detail_url.match(regex)[0];
     var gameStrRegex = new RegExp('\\?'+gameId);
@@ -121,9 +116,6 @@ angular.module('g4u.services', [])
       }
     }
     oldToken.userGames.splice(gameindex, 1);
-    // oldToken.userGames = newGames;
-    console.log(oldToken.gamesStr);
-    console.log(oldToken.userGames);
     $window.localStorage.setItem('com.g4uUser', JSON.stringify(oldToken));
 
   };

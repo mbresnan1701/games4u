@@ -61,7 +61,6 @@ exports.addNewUser = function(req, res) {
         });
         console.log(newUser)
         newUser.save(function(err, user) {
-          // util.createSession(req, res, user.username);
           res.send(200, {username: user.username, userstr: user.gamesStr});
         });
 
@@ -86,7 +85,7 @@ exports.loginUser = function(req, res) {
         res.send(403, 'User Not Found');
       } else {
         if(password === user.password) {
-          res.send(200, {username: user.username, gamesStr: user.gamesStr});
+          res.send(200, user);
         } else {
           res.send(403, 'Invalid Credentials');
         }
@@ -115,9 +114,9 @@ exports.getGame = function(req, res) {
 
 exports.updateUserStr = function(req, res) {
   console.log(req.body);
-  User.update({ username: req.body.username }, {gamesStr: req.body.gamesStr}).exec()
+  User.update({ username: req.body.username }, {$inc: {gamesStr: req.body.gamesStr}}, {}).exec()
     .then(function(result) {
-      console.log(result);
+      // console.log(result);
       res.send(200, result);
     });
 
