@@ -7,6 +7,10 @@ angular.module('g4u.mygames', [])
 
   $scope.removeGame = function(game) {
     var tokenData = JSON.parse($window.localStorage.getItem('com.g4uUser'));
+    var idregex = /(\d*-\d*)/g;
+    var gameId = game.api_detail_url.match(idregex)[0];
+    var gameStrRegex = new RegExp('\\?'+gameId);
+    tokenData.gamesStr = tokenData.gamesStr.replace(gameStrRegex, '');
     User.removeGame(game);
     $http({
       method: 'POST',
@@ -34,7 +38,7 @@ angular.module('g4u.mygames', [])
 }
 
 
-  
+
 });
 
 // var token = JSON.parse($window.localStorage.getItem('com.g4uUser'));
